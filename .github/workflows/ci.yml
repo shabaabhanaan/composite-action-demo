@@ -1,0 +1,24 @@
+name: Test Composite Action
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  add:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Add Numbers Action
+        id: addition
+        uses: ./.github/actions/add-numbers
+        with:
+          number1: 5
+          number2: 7
+
+      - name: Print Result
+        run: echo "Final Result = ${{ steps.addition.outputs.sum }}"
