@@ -1,0 +1,28 @@
+name: "Add Two Numbers"
+description: "Composite action to add two numbers"
+
+inputs:
+  number1:
+    description: "First number"
+    required: true
+
+  number2:
+    description: "Second number"
+    required: true
+
+outputs:
+  sum:
+    description: "Result of addition"
+    value: ${{ steps.calculate.outputs.result }}
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Calculate Sum
+      id: calculate
+      shell: bash
+      run: |
+        result=$((${{ inputs.number1 }} + ${{ inputs.number2 }}))
+        echo "Result: $result"
+        echo "result=$result" >> $GITHUB_OUTPUT
